@@ -41,6 +41,77 @@
 
 
 </header>
+<section class="job-filter">
+    <h1 class="heading">filter jobs</h1>
+    <form action="" method="post">
+      <div class="flex">
+        <div class="box">
+          <p>job title <span>*</span></p>
+          <input type="text" name="title" placeholder="keyword, category or company" required maxlength="20" class="input">
+        </div>
+        <div class="box">
+          <p>job location</p>
+          <input type="text" name="title" placeholder="city, state or country" required maxlength="50" class="input">
+        </div>
+      </div>
+      <div class="dropdown-container">
+        <div class="dropdown">
+          <input type="text" readonly placeholder="date posted" name="date" maxlength="20"  class="output">
+          <div class="lists">
+            <p class="items">today</p>
+            <p class="items">3 days ago</p>
+            <p class="items">7 days ago</p>
+            <p class="items">10 days ago</p>
+            <p class="items">15 days ago</p>
+            <p class="items">30 days ago</p>
+          </div>
+        </div>
+  
+        <div class="dropdown">
+            <input type="text" readonly placeholder="estimated salary" name="date" maxlength="20"  class="output">
+            <div class="lists">
+              <p class="items">10D or less </p>
+              <p class="items">10D-20D</p>
+              <p class="items">20D-30D</p>
+              <p class="items">30D-40D</p>
+              <p class="items">40D-50D</p>
+              <p class="items">50D-100D</p>
+              <p class="items">100D-200D</p>
+              <p class="items">200D or more</p>
+            </div>
+        </div>
+  
+          <div class="dropdown">
+              <input type="text" readonly placeholder="Job type" name="date" maxlength="20"  class="output">
+              <div class="lists">
+                <p class="items">full-time</p>
+                <p class="items">part-time</p>
+                <p class="items">intership</p>
+                <p class="items">contract</p>
+                <p class="items">temperary</p>
+                <p class="items">fresher</p>
+              </div>
+          </div>
+  
+            <div class="dropdown">
+                <input type="text" readonly placeholder="education level" name="date" maxlength="20"  class="output">
+                <div class="lists">
+                  <p class="items">10th pass 12th pass</p>
+                  <p class="items">bachelor's degree</p>
+                  <p class="items">master's degree</p>
+                  <p class="items">diploma</p>
+                </div>
+            </div>
+  
+        
+        
+  
+      
+    </form>
+  
+  </section>
+  
+  
 
 <section class="jobs-container">
     <h1 class="heading">all jobs</h1>
