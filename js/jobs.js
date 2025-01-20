@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const jobHTML = `
                 <div class="box" data-job-id="${job.id}">
                     <div class="company">
-                        <img src="${job.image}" alt="${job.company}">
+                        
                         <div>
                             <h3>${job.company}</h3>
                             <span>${job.datePosted}</span>
