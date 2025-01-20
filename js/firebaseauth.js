@@ -1,4 +1,4 @@
- // Import the functions you need from the SDKs you need
+
  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
  import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
  import{getFirestore, setDoc, doc} from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js"
@@ -12,7 +12,7 @@
     appId: "1:375097325018:web:49ae68a0eb067b6b847ce3",
     measurementId: "G-G8V4HEEBJ2"
   };
- // Initialize Firebase
+
  const app = initializeApp(firebaseConfig);
 
  function showMessage(message, divId){

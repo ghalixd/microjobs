@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post a Job | MicroJobs</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .btn-container {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .btn_delete_btn {
+            background-color: #ff4444;
+            color: #fff;
+            padding: 0.7rem 2rem;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-size: 1.7rem;
+            transition: background-color 0.2s ease;
+        }
+        
+        .btn_delete_btn:hover {
+            background-color: #cc0000;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <section class="flex">
+            <div id="menu-btn" class="fas fa-bars-staggered"></div>
+            <a href="home.html" class="logo"><i class="fas fa-briefcase"></i> MicroJobs.</a>
+            <nav class="navbar">
+                <a href="home.html">home</a>
+                <a href="about.html">about us</a>
+                <a href="jobs.html">all jobs</a>
+                <a href="contact.html">contact us</a>
+                <a href="login.html">account</a>
+                <a href="post_job.html">form</a>
+            </nav>
+            <a href="post_job.html" class="btn" style="margin-top: 0;">post job</a>
+            
+            
+        </section>
+    </header>
+
+    <section class="contact">
+        <form id="post-job-form" action="" method="POST">
+            <h3>Post New Job</h3>
+            <div class="flex">
+                <div class="box">
+                    <p>Job Title <span>*</span></p> 
+                    <input type="text" name="title" required maxlength="50" 
+                    placeholder="Enter job title" class="input">
+                </div>
+
+                <div class="box">
+                    <p>Company <span>*</span></p> 
+                    <input type="text" name="company" required maxlength="50" 
+                    placeholder="Enter company name" class="input">
+                </div>
+                
+                <div class="box">
+                    <p>Location <span>*</span></p> 
+                    <input type="text" name="location" required maxlength="50" 
+                    placeholder="Enter job location" class="input">
+                </div>
+
+                <div class="box">
+                    <p>Salary <span>*</span></p> 
+                    <select name="salary" required class="input">
+                        <option value="">Select salary range</option>
+                        <option value="10_per_delivery">10 TND/delivery</option>
+                        <option value="20_per_hour">20 TND/hour</option>
+                        <option value="30_per_post">30 TND/post</option>
+                        <option value="30_per_session">30 TND/session</option>
+                        <option value="50_per_day">50 TND/day</option>
+                        <option value="50_to_100">50 TND - 100 TND</option>
+                        <option value="80_per_day">80 TND/day</option>
+                        <option value="100_per_task">100 TND/task</option>
+                    </select>
+                </div>
+
+                <div class="box">
+                    <p>Job Type <span>*</span></p> 
+                    <select name="type" required class="input">
+                        <option value="">Select job type</option>
+                        <option value="full_time">Full Time</option>
+                        <option value="part_time">Part Time</option>
+                        <option value="contract">Contract</option>
+                        <option value="temporary">Temporary</option>
+                        <option value="freelance">Freelance</option>
+                    </select>
+                </div>
+
+                <div class="box">
+                    <p>Shift <span>*</span></p> 
+                    <select name="shift" required class="input">
+                        <option value="">Select shift</option>
+                        <option value="morning">Morning</option>
+                        <option value="afternoon">Afternoon</option>
+                        <option value="evening">Evening</option>
+                        <option value="night">Night</option>
+                        <option value="flexible">Flexible</option>
+                    </select>
+                </div>
+
+                <div class="box">
+                    <p>Category <span>*</span></p> 
+                    <select name="category" required class="input">
+                        <option value="">Select category</option>
+                        <option value="painting">🎨 Painting</option>
+                        <option value="gardening">🌱 Gardening</option>
+                        <option value="cleaning">🧹 Cleaning</option>
+                        <option value="babysitting">👶 Babysitting</option>
+                        <option value="handyman">🔨 Handyman</option>
+                        <option value="car-wash">🚗 Car Wash</option>
+                        <option value="moving-help">🚚 Moving Help</option>
+                        <option value="tech">💻 Tech</option>
+                    </select>
+                </div>
+
+                <div class="box">
+                    <p>Job Description <span>*</span></p>
+                    <textarea name="description" required class="input" 
+                    placeholder="Enter job description" maxlength="1000" rows="3"></textarea>
+                </div>
+
+                <div class="box">
+                    <input type="submit" value="Post Job" class="btn">
+                </div>
+            </div>
+        </form>
+    </section>
+
+    <footer class="footer">
+        <section class="grid">
+            <div class="box">
+                <h3>Quick Links</h3>
+                <a href="home.html"><i class="fas fa-angle-right"></i> Home</a>
+                <a href="about.html"><i class="fas fa-angle-right"></i> About</a>
+                <a href="jobs.html"><i class="fas fa-angle-right"></i> All Jobs</a>
+                <a href="contact.html"><i class="fas fa-angle-right"></i> Contact</a>
+                <a href="#"><i class="fas fa-angle-right"></i> Filter Search</a>
+            </div>
+
+            <div class="box">
+                <h3>Extra Links</h3>
+                <a href="#"><i class="fas fa-angle-right"></i> Account</a>
+                <a href="login.html"><i class="fas fa-angle-right"></i> Login</a>
+                <a href="register.html"><i class="fas fa-angle-right"></i> Register</a>
+                <a href="post_job.html"><i class="fas fa-angle-right"></i> Post Job</a>  
+                <a href="#"><i class="fas fa-angle-right"></i> Dashboard</a>         
+            </div>
+
+            <div class="box">
+                <h3>Follow Us</h3>
+                <a href="#"><i class="fab fa-facebook-f"></i> Facebook</a>
+                <a href="#"><i class="fab fa-twitter"></i> Twitter</a>
+                <a href="#"><i class="fab fa-instagram"></i> Instagram</a>
+                <a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                <a href="#"><i class="fab fa-youtube"></i> YouTube</a>
+            </div>
+        </section>
+
+        <div class="credit">&copy; copyright @ 2024 | all rights reserved!</div>
+    </footer>
+    <script src="js/post_job.js"></script>
+
+</body>
+</html>

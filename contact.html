@@ -1,14 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, intial-scake=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us</title>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <!-- Initialize EmailJS -->
+    <script>
+        (function() {
+            emailjs.init("SgufS8k17dYSqLSuD");
+        })();
 
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.querySelector('form');
+            if (!form) return;
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+            
+                // Get form data
+                const formData = {
+                    name: document.querySelector('input[name="name"]').value.trim(),
+                    number: document.querySelector('input[name="number"]').value.trim(),
+                    email: document.querySelector('input[name="mail"]').value.trim(),
+                    role: document.querySelector('select[name="role"]').value,
+                    message: document.querySelector('textarea[name="message"]').value.trim()
+                };
+            
+                // Additional validation
+                if (!isValidEmail(formData.email)) {
+                    alert('Please enter a valid email address');
+                    return;
+                }
+            
+                if (!isValidPhone(formData.number)) {
+                    alert('Please enter a valid phone number');
+                    return;
+                }
+            
+                // Show loading state
+                const submitBtn = document.querySelector('input[type="submit"]');
+                const originalBtnText = submitBtn.value;
+                submitBtn.value = 'Sending...';
+                submitBtn.disabled = true;
+            
+                // Send email using EmailJS
+                emailjs.send('service_84ugdu4', 'template_3bp5tee', { // Replace with your actual service and template IDs
+                    from_name: formData.name,
+                    phone_number: formData.number,
+                    from_email: formData.email,
+                    role: formData.role,
+                    message: formData.message,
+                    to_email: 'borichouket@gmail.com'
+                })
+                .then(function() {
+                    // Show success message
+                    alert('Thank you! Your message has been sent successfully.');
+                    
+                    // Reset form
+                    e.target.reset();
+                    
+                    // Reset button
+                    submitBtn.value = originalBtnText;
+                    submitBtn.disabled = false;
+                })
+                .catch(function(error) {
+                    // Show error message
+                    console.error('Failed to send email:', error);
+                    alert('Sorry, there was an error sending your message. Please try again later.');
+                    
+                    // Reset button
+                    submitBtn.value = originalBtnText;
+                    submitBtn.disabled = false;
+                });
+            });
+            
+            // Validation helper functions
+            function isValidEmail(email) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return emailRegex.test(email);
+            }
+            
+            function isValidPhone(phone) {
+                const phoneRegex = /^\d{8,}$/; // Assumes minimum 8 digits
+                return phoneRegex.test(phone);
+            }
+            
+            // Add real-time validation feedback
+            document.querySelectorAll('.input').forEach(input => {
+                input.addEventListener('invalid', function(e) {
+                    e.preventDefault();
+                    this.classList.add('error');
+                });
+            
+                input.addEventListener('input', function() {
+                    this.classList.remove('error');
+                    
+                    if (this.name === 'mail' && this.value) {
+                        if (!isValidEmail(this.value)) {
+                            this.classList.add('error');
+                        }
+                    }
+                    
+                    if (this.name === 'number' && this.value) {
+                        if (!isValidPhone(this.value)) {
+                            this.classList.add('error');
+                        }
+                    }
+                });
+            });
+        });
+    </script>
     <link rel="stylesheet" href="css/style.css">
-
 </head>
 <body>
     <div id="preloader">
@@ -28,6 +133,7 @@
             <a href="jobs.html">all jobs</a>
             <a href="contact.html">contact us</a>
             <a href="login.html">account</a>
+            <a href="post_job.html">form</a>
         </nav>
 
         <a href="#" class="btn" style="margin-top: 0;">post job</a>
@@ -66,24 +172,24 @@
             <div class="box">
                <p>name <span>*</span></p> 
                <input type="text"  name="name" required  maxlength="20" 
-               placeholder="enter your name" class="input">
+               placeholder="enter your name" class="input" required>
             </div>
             <div class="box">
                 <p>number <span>*</span></p> 
                 <input type="number"  name="number" required minlength="0" maxlength="99999999" 
-                placeholder="enter your number" class="input">
+                placeholder="enter your number" class="input" required>
              </div>
              
              <div class="box">
                 <p>mail <span>*</span></p> 
                 <input type="mail"  name="mail" required minlength="0" maxlength="50" 
-                placeholder="enter your email" class="input">
+                placeholder="enter your email" class="input" required>
              </div>
              <div class="box">
                 <p>role <span>*</span></p> 
                 <select name="role" required class="input">
-                    <option value="job1...">Job Seeker (Employee)</option>
-                    <option value="*">Job Provider (Employer)</option>
+                    <option value="job1">Job Seeker (Employee)</option>
+                    <option value="job2">Job Provider (Employer)</option>
                     
                 </select>
 
@@ -94,6 +200,7 @@
         placeholder="enter your message" cols="30" rows="10"></textarea>
         <input type="submit" value="send message" name="send" class="btn">
     </form>
+    
 </section>
 
 

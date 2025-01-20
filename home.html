@@ -30,9 +30,10 @@
             <a href="jobs.html">all jobs</a>
             <a href="contact.html">contact us</a>
             <a href="login.html">account</a>
+            <a href="post_job.html">form</a>
         </nav>
 
-        <a href="#" class="btn" style="margin-top: 0;">post job</a>
+        <a href="post_job.html" class="btn" style="margin-top: 0;">post job</a>
             
 
     </section>
@@ -41,9 +42,8 @@
 </header>
 
 <div class="home-container">
-
     <section class="home">
-        <form action="" method="post">
+        <form action="jobs.html" method="get" onsubmit="return validateForm()">
             <h3>find your next side job</h3>
             <p>job title <span>*</span></p>
             <input type="text" name="title" placeholder="category or company" required maxlength="50" class="input">
@@ -52,8 +52,18 @@
             <input type="submit" value="search job" name="search" class="btn">
         </form>
     </section>
-
 </div>
+
+<script>
+function validateForm() {
+    const title = document.querySelector('input[name="title"]').value.trim();
+    if (!title) {
+        alert('Please enter a job title');
+        return false;
+    }
+    return true;
+}
+</script>
 
 <section class="category">
     <h1 class="heading">job categories</h1>

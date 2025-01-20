@@ -1,377 +1,394 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, intial-scake=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Jobs</title>
 
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
 
+
+    
+    <style>
+        .jobs-container .box-container .box{
+            background-color: var(--white);
+            border-radius: .5rem;
+            border: var(--border);
+            padding: 2rem;
+            box-shadow: var(--box-shadow);
+            overflow-x: hidden;
+        
+        }
+
+        .heading {
+            font-size: 2.5rem;
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 3rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .heading::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: #0171d3;
+            border-radius: 2px;
+        }
+
+        #filter-form {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 3rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .search-group {
+            position: relative;
+        }
+
+        .search-group .icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #3498db;
+            font-size: 1.2rem;
+        }
+
+        .box {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+
+        .box:focus {
+            border-color: 0171d3;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+            outline: none;
+        }
+
+        .button-group {
+            grid-column: 1/-1;
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            min-width: 200px;
+            justify-content: center;
+        }
+
+        .btn i {
+            font-size: 1.2rem;
+        }
+
+        .btn {
+            background: 0171d3;
+            color: white;
+        }
+
+        .btn:hover{
+            background-color: var(--black);
+        }
+
+        .btn-reset {
+            background: #95a5a6;
+        }
+
+        .btn-reset:hover {
+            background: #7f8c8d;
+        }
+
+        .results-info {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #7f8c8d;
+            margin: 2rem 0;
+        }
+
+        #job-count {
+            font-weight: bold;
+            color: #0171d3;
+        }
+
+        .box-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            padding: 1rem;
+        }
+
+        .box-container .box {
+            background: white;
+            border: none;
+            border-radius: 15px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .box-container .box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .company {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .company img {
+            width: 80px;
+            height: 80px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 2px solid #e0e0e0;
+        }
+
+        .company h3 {
+            font-size: 1.2rem;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .company span {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        .job-title {
+            font-size: 1.4rem;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .location {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #7f8c8d;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .tags p {
+            background: #f0f4f8;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #2c3e50;
+            font-size: 0.9rem;
+        }
+
+        .tags i {
+            color: #0171d3;
+        }
+
+        .flex-btn {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+        }
+
+        .flex-btn .btn {
+            min-width: auto;
+            padding: 0.8rem 1.5rem;
+        }
+
+        .flex-btn button {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #e74c3c;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .flex-btn button:hover {
+            transform: scale(1.2);
+        }
+
+        @media (max-width: 768px) {
+            .jobs-container {
+                padding: 0 1rem;
+            }
+
+            .heading {
+                font-size: 2rem;
+            }
+
+            #filter-form {
+                padding: 1.5rem;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
-
-    <div id="preloader">
-        <div class="loader"></div>
-    </div>
+   
+        <div id="preloader">
+            <div class="loader"></div>
+        </div>
     
+        <header class="header">
+            <section class="flex">
+                <div id="menu-btn" class="fas fa-bars-staggered"></div>
+                <a href="home.html" class="logo"><i class="fas fa-briefcase"></i> MicroJobs.</a>
+                <nav class="navbar">
+                    <a href="home.html">home</a>
+                    <a href="about.html">about us</a>
+                    <a href="jobs.html">all jobs</a>
+                    <a href="contact.html">contact us</a>
+                    <a href="login.html">account</a>
+                    <a href="post_job.html">form</a>
+                </nav>
+                <a href="post_job.html" class="btn" style="margin-top: 0;">post job</a>
+            </section>
+        </header>
     
-
-<header class="header">
-
-    <section class="flex">
-
-        <div id="menu-btn" class="fas fa-bars-staggered"></div>
-
-        <a href="home.html" class="logo"><i class="fas fa-briefcase"></i> MicroJobs.</a>
-
-        <nav class="navbar">
-            <a href="home.html">home</a>
-            <a href="about.html">about us</a>
-            <a href="jobs.html">all jobs</a>
-            <a href="contact.html">contact us</a>
-            <a href="login.html">account</a>
-        </nav>
-
-        <a href="#" class="btn" style="margin-top: 0;">post job</a>
+    <section class="jobs-container">
+        <h1 class="heading">All Jobs</h1>
+        
+        <form id="filter-form" class="flex">
+            <div class="search-group">
+                <i class="fas fa-search icon"></i>
+                <input type="text" name="title" placeholder="Search by Job Title" class="box">
+            </div>
             
-
-    </section>
-
-
-</header>
-<section class="job-filter">
-    <h1 class="heading">filter jobs</h1>
-    <form action="" method="post">
-      <div class="flex">
-        <div class="box">
-          <p>job title <span>*</span></p>
-          <input type="text" name="title" placeholder="keyword, category or company" required maxlength="20" class="input">
-        </div>
-        <div class="box">
-          <p>job location</p>
-          <input type="text" name="title" placeholder="city, state or country" required maxlength="50" class="input">
-        </div>
-      </div>
-      <div class="dropdown-container">
-        <div class="dropdown">
-          <input type="text" readonly placeholder="date posted" name="date" maxlength="20"  class="output">
-          <div class="lists">
-            <p class="items">today</p>
-            <p class="items">3 days ago</p>
-            <p class="items">7 days ago</p>
-            <p class="items">10 days ago</p>
-            <p class="items">15 days ago</p>
-            <p class="items">30 days ago</p>
-          </div>
-        </div>
-  
-        <div class="dropdown">
-            <input type="text" readonly placeholder="estimated salary" name="date" maxlength="20"  class="output">
-            <div class="lists">
-              <p class="items">10D or less </p>
-              <p class="items">10D-20D</p>
-              <p class="items">20D-30D</p>
-              <p class="items">30D-40D</p>
-              <p class="items">40D-50D</p>
-              <p class="items">50D-100D</p>
-              <p class="items">100D-200D</p>
-              <p class="items">200D or more</p>
+            <div class="search-group">
+                <i class="fas fa-location-dot icon"></i>
+                <input type="text" name="location" placeholder="Search by Location" class="box">
             </div>
-        </div>
-  
-          <div class="dropdown">
-              <input type="text" readonly placeholder="Job type" name="date" maxlength="20"  class="output">
-              <div class="lists">
-                <p class="items">full-time</p>
-                <p class="items">part-time</p>
-                <p class="items">intership</p>
-                <p class="items">contract</p>
-                <p class="items">temperary</p>
-                <p class="items">fresher</p>
-              </div>
-          </div>
-  
-            <div class="dropdown">
-                <input type="text" readonly placeholder="education level" name="date" maxlength="20"  class="output">
-                <div class="lists">
-                  <p class="items">10th pass 12th pass</p>
-                  <p class="items">bachelor's degree</p>
-                  <p class="items">master's degree</p>
-                  <p class="items">diploma</p>
-                </div>
+            
+            <div class="search-group">
+                <i class="fas fa-money-bill icon"></i>
+                <select name="salary" class="box">
+                    <option value="">All Salaries</option>
+                    <option value="10 TND/delivery">10 TND/delivery</option>
+                    <option value="20 TND/hour">20 TND/hour</option>
+                    <option value="30 TND/post">30 TND/post</option>
+                    <option value="30 TND/session">30 TND/session</option>
+                    <option value="50 TND/day">50 TND/day</option>
+                    <option value="50 TND - 100 TND">50 TND - 100 TND</option>
+                    <option value="80 TND/day">80 TND/day</option>
+                    <option value="100 TND/task">100 TND/task</option>
+                </select>
             </div>
-  
-        
-        
-  
-      
-    </form>
-  
-  </section>
-  
-  
-
-<section class="jobs-container">
-    <h1 class="heading">all jobs</h1>
-
-    <div class="box-container">
-        <div class="box">
-            <div class="company">
-                <img src="images/icon-1.png" alt="">
-                <div>
-                    <h3>Clean & Shine Co.</h3>
-                    <span>1 day ago</span>
-                </div>
+            
+            <div class="search-group">
+                <i class="fas fa-briefcase icon"></i>
+                <select name="type" class="box">
+                    <option value="">All Job Types</option>
+                    <option value="full_time">Full Time</option>
+                    <option value="part_time">Part Time</option>
+                    <option value="contract">Contract</option>
+                    <option value="temporary">Temporary</option>
+                    <option value="freelance">Freelance</option>
+                </select>
             </div>
-            <h3 class="job-title">Home Cleaning Service</h3>
-            <p class="location"><i class="fa fa-map-marker-alt"></i>
-                <span>Tunis, Tunisia</span>
-            </p>
-            <div class="tags">
-                <p><i class="fas fa-money-bill-wave"></i><span> 50 TND - 100 TND</span></p>
-                <p><i class="fas fa-briefcase"></i><span> One-Time Task</span></p>  
-                <p><i class="fas fa-clock"></i><span> Flexible</span></p>
+            
+            <div class="button-group">
+                <button type="submit" class="btn">
+                    <i class="fas fa-filter"></i> Filter Jobs
+                </button>
+                <button type="reset" class="btn btn-reset">
+                    <i class="fas fa-rotate"></i> Reset
+                </button>
             </div>
-            <div class="flex-btn">
-                <a href="view_job.html" class="btn">view details</a>
-                <button type="submit" class="far fa-heart"></button>
+        </form>
+            <div class="results-info" id="results-info">
+                Showing <span id="job-count">0</span> jobs
             </div>
-        </div>
-        
-        <div class="box">
-            <div class="company">
-                <img src="images/icon-2.png" alt="">
-                <div>
-                    <h3>Tunisia Babysitters</h3>
-                    <span>3 days ago</span>
-                </div>
-            </div>
-            <h3 class="job-title">Weekend Babysitter</h3>
-            <p class="location"><i class="fa fa-map-marker-alt"></i>
-                <span>Sousse, Tunisia</span>
-            </p>
-            <div class="tags">
-                <p><i class="fas fa-money-bill-wave"></i><span> 20 TND/hour</span></p>
-                <p><i class="fas fa-briefcase"></i><span> Part-Time</span></p>
-                <p><i class="fas fa-clock"></i><span> Evening Shift</span></p>
-            </div>
-            <div class="flex-btn">
-                <a href="view_job.html" class="btn">view details</a>
-                <button type="submit" class="far fa-heart"></button>
-            </div>
-        </div>
-        
-        <div class="box">
-            <div class="company">
-                <img src="images/icon-3.png" alt="">
-                <div>
-                    <h3>Bright Minds Tutors</h3>
-                    <span>4 days ago</span>
-                </div>
-            </div>
-            <h3 class="job-title">Math Tutor for High School</h3>
-            <p class="location"><i class="fa fa-map-marker-alt"></i>
-                <span>Ariana, Tunisia</span>
-            </p>
-            <div class="tags">
-                <p><i class="fas fa-money-bill-wave"></i><span> 30 TND/session</span></p>
-                <p><i class="fas fa-briefcase"></i><span> Freelance</span></p>
-                <p><i class="fas fa-clock"></i><span> Evenings</span></p>
-            </div>
-            <div class="flex-btn">
-                <a href="view_job.html" class="btn">view details</a>
-                <button type="submit" class="far fa-heart"></button>
-            </div>
-        </div>
-        
-        <div class="box">
-            <div class="company">
-                <img src="images/icon-4.png" alt="">
-                <div>
-                    <h3>Crafty Hand Co.</h3>
-                    <span>5 days ago</span>
-                </div>
-            </div>
-            <h3 class="job-title">Custom Furniture Assembler</h3>
-            <p class="location"><i class="fa fa-map-marker-alt"></i>
-                <span>Monastir, Tunisia</span>
-            </p>
-            <div class="tags">
-                <p><i class="fas fa-money-bill-wave"></i><span> 100 TND/task</span></p>
-                <p><i class="fas fa-briefcase"></i><span> One-Time Task</span></p>
-                <p><i class="fas fa-clock"></i><span> Day Shift</span></p>
-            </div>
-            <div class="flex-btn">
-                <a href="view_job.html" class="btn">view details</a>
-                <button type="submit" class="far fa-heart"></button>
-            </div>
-        </div>
-        
-        <div class="box">
-            <div class="company">
-                <img src="images/icon-5.png" alt="">
-                <div>
-                    <h3>Green Gardens</h3>
-                    <span>6 days ago</span>
-                </div>
-            </div>
-            <h3 class="job-title">Gardening and Lawn Care</h3>
-            <p class="location"><i class="fa fa-map-marker-alt"></i>
-                <span>Bizerte, Tunisia</span>
-            </p>
-            <div class="tags">
-                <p><i class="fas fa-money-bill-wave"></i><span> 80 TND/day</span></p>
-                <p><i class="fas fa-briefcase"></i><span> Short-Term</span></p>
-                <p><i class="fas fa-clock"></i><span> Morning Shift</span></p>
-            </div>
-            <div class="flex-btn">
-                <a href="view_job.html" class="btn">view details</a>
-                <button type="submit" class="far fa-heart"></button>
-            </div>
-        </div>
-        <div class="box">
-            <div class="company">
-                <img src="images/icon-6.png" alt="">
-                <div>
-                    <h3>Event Assist Pro</h3>
-                    <span>2 days ago</span>
-                </div>
-            </div>
-            <h3 class="job-title">Event Setup Helper</h3>
-            <p class="location"><i class="fa fa-map-marker-alt"></i>
-                <span>Tunis, Tunisia</span>
-            </p>
-            <div class="tags">
-                <p><i class="fas fa-money-bill-wave"></i><span> 50 TND/day</span></p>
-                <p><i class="fas fa-briefcase"></i><span> Temporary</span></p>
-                <p><i class="fas fa-clock"></i><span> Morning Shift</span></p>
-            </div>
-            <div class="flex-btn">
-                <a href="view_job.html" class="btn">view details</a>
-                <button type="submit" class="far fa-heart"></button>
-            </div>
-        </div>
-
-        <div class="box">
-            <div class="company">
-                <img src="images/icon-7.png" alt="">
-                <div>
-                    <h3>Happy Paws Services</h3>
-                    <span>1 day ago</span>
-                </div>
-            </div>
-            <h3 class="job-title">Dog Walker</h3>
-            <p class="location"><i class="fa fa-map-marker-alt"></i>
-                <span>Sfax, Tunisia</span>
-            </p>
-            <div class="tags">
-                <p><i class="fas fa-money-bill-wave"></i><span> 20 TND/hour</span></p>
-                <p><i class="fas fa-briefcase"></i><span> Part-Time</span></p>
-                <p><i class="fas fa-clock"></i><span> Afternoon Shift</span></p>
-            </div>
-            <div class="flex-btn">
-                <a href="view_job.html" class="btn">view details</a>
-                <button type="submit" class="far fa-heart"></button>
-            </div>
-        </div>
-        <div class="box">
-            <div class="company">
-                <img src="images/icon-8.png" alt="">
-                <div>
-                    <h3>Media Boost Tunisia</h3>
-                    <span>3 days ago</span>
-                </div>
-            </div>
-            <h3 class="job-title">Content Creator</h3>
-            <p class="location"><i class="fa fa-map-marker-alt"></i>
-                <span>Nabeul, Tunisia</span>
-            </p>
-            <div class="tags">
-                <p><i class="fas fa-money-bill-wave"></i><span> 30 TND/post</span></p>
-                <p><i class="fas fa-briefcase"></i><span> Freelance</span></p>
-                <p><i class="fas fa-clock"></i><span> Remote-Jobs</span></p>
-            </div>
-            <div class="flex-btn">
-                <a href="view_job.html" class="btn">view details</a>
-                <button type="submit" class="far fa-heart"></button>
-            </div>
-        </div>
-        <div class="box">
-            <div class="company">
-                <img src="images/icon-9.png" alt="">
-                <div>
-                    <h3>Quick Courier</h3>
-                    <span>5 days ago</span>
-                </div>
-            </div>
-            <h3 class="job-title">Parcel Delivery Helper</h3>
-            <p class="location"><i class="fa fa-map-marker-alt"></i>
-                <span>Gabès, Tunisia</span>
-            </p>
-            <div class="tags">
-                <p><i class="fas fa-money-bill-wave"></i><span> 10 TND/delivery</span></p>
-                <p><i class="fas fa-briefcase"></i><span> Flexible</span></p>
-                <p><i class="fas fa-clock"></i><span> On-Demand</span></p>
-            </div>
-            <div class="flex-btn">
-                <a href="view_job.html" class="btn">view details</a>
-                <button type="submit" class="far fa-heart"></button>
-            </div>
-        </div>
-        
-        
-        
-        </div>
-    </div>
+            
+            <div class="box-container" id="jobs"></div>
+        </section>
     
-</section>
 
-        
-        
+    
+       
+    
 
-<footer class="footer">
+    <footer class="footer">
+        <section class="grid">
+            <div class="box">
+                <h3>quick links</h3>
+                <a href="home.html"><i class="fas fa-angle-right"></i> home</a>
+                <a href="about.html"><i class="fas fa-angle-right"></i> about</a>
+                <a href="jobs.html"><i class="fas fa-angle-right"></i> all jobs</a>
+                <a href="contact.html"><i class="fas fa-angle-right"></i> contact</a>
+                <a href="#"><i class="fas fa-angle-right"></i> filter search</a>
+            </div>
 
-    <section class="grid">
+            <div class="box">
+                <h3>extra links</h3>
+                <a href="#"><i class="fas fa-angle-right"></i> account</a>
+                <a href="login.html"><i class="fas fa-angle-right"></i> login</a>
+                <a href="register.html"><i class="fas fa-angle-right"></i> register</a>
+                <a href="#"><i class="fas fa-angle-right"></i> post job</a>  
+                <a href="#"><i class="fas fa-angle-right"></i> dashboard</a>         
+            </div>
 
-        <div class="box">
-            <h3>quick links</h3>
-            <a href="home.html"><i class="fas fa-angle-right"></i> home</a>
-            <a href="about.html"><i class="fas fa-angle-right"> </i> about</a>
-            <a href="jobs.html"><i class="fas fa-angle-right"> </i> all jobs</a>
-            <a href="contact.html"><i class="fas fa-angle-right"> </i> contact</a>
-            <a href="#"><i class="fas fa-angle-right"> </i> filter search</a>
+            <div class="box">
+                <h3>follow us</h3>
+                <a href="#"><i class="fab fa-facebook-f"></i> facebook</a>
+                <a href="#"><i class="fab fa-twitter"></i> twitter</a>
+                <a href="#"><i class="fab fa-instagram"></i> instagram</a>
+                <a href="#"><i class="fab fa-linkedin"></i> linkedin</a>
+                <a href="#"><i class="fab fa-youtube"></i> youtube</a>
+            </div>
+        </section>
 
-        </div>
+        <div class="credit">&copy; copyright @ 2024 | all rights reserved!</div>
+    </footer>
 
-        <div class="box">
-            <h3>extra links</h3>
-            <a href="#"><i class="fas fa-angle-right"> </i> account</a>
-            <a href="login.html"><i class="fas fa-angle-right"> </i> login</a>
-            <a href="register.html"><i class="fas fa-angle-right"></i> register</a>
-            <a href="#"><i class="fas fa-angle-right"> </i> post job</a>  
-            <a href="#"><i class="fas fa-angle-right"> </i> dashboard</a>         
-        </div>
-
-        <div class="box">
-            <h3>follow us</h3>
-            <a href="#"><i class="fab fa-facebook-f"></i>  facebook</a>
-            <a href="#"><i class="fab fa-twitter"></i>  twitter</a>
-            <a href="#"><i class="fab fa-instagram"></i>  instagram</a>
-            <a href="#"><i class="fab fa-linkedin"></i>  linkedin</a>
-            <a href="#"><i class="fab fa-youtube"></i>  youtube</a>
-        </div>
-
-
-
-    </section>
-
-    <div class="credit">&copy; copyright @ 2024 | all rights reserved!</div>
-
-</footer>
-
-<script src="js/script.js"></script>
-
+    <!-- Scripts -->
+    <script src="js/jobs.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
