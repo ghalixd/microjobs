@@ -16,7 +16,7 @@ window.addEventListener("load", function () {
 
 const forms = document.querySelector(".forms"),
     pwShowHide = document.querySelectorAll(".eye-icon"),
-    signupLink = document.querySelector(".sginup-link"),  
+    signupLink = document.querySelector(".signup-link"),  
     loginLink = document.querySelector(".login-link");    
 
 

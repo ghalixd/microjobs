@@ -4,7 +4,7 @@
 
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, intial-scake=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Login</title>
         <link rel="stylesheet" href="css/style.css">
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -12,6 +12,46 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
         <script type="module" src="js/firebaseauth.js"></script>
+        <!-- Add this in the <head> section -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        <style>
+            .bx-spin {
+                animation: spin 1s linear infinite;
+            }
+            
+            @keyframes spin {
+                from {
+                    transform: rotate(0deg);
+                }
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+            
+            button:disabled {
+                opacity: 0.7;
+                cursor: not-allowed;
+            }
+            #preloader {
+                position: fixed;
+                width: 100%;
+                height: 100%;
+                background: #fff;
+                z-index: 9999;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            
+            .loader {
+                width: 40px;
+                height: 40px;
+                border: 4px solid #f3f3f3;
+                border-top: 4px solid #3498db;
+                border-radius: 50%;
+                animation: spin 1s linear infinite;
+            }
+        </style>
     </head>
 <body>
     
@@ -51,7 +91,7 @@
         <div class="form login">
             <div class="form-content">
                 <header>Login</header>
-                <form action="#">
+                <form >
                     <div id="signInMessage" class="messageDiv" style="display: none;"></div>
                     <div class="field input-field">
                         <input type="mail" placeholder="Email" class="input" id="email">
@@ -115,7 +155,7 @@
                         <i class='bx bx-hide eye-icon' ></i>
                     </div>
                     <div class="field input-field">
-                        <input type="password" placeholder="Confirm Password" class="password" id="rpassword">
+                        <input type="password" placeholder="Confirm Password" class="password" id="rpassword-confirm">
                         <i class='bx bx-hide eye-icon' ></i>
                     </div>
                    
@@ -136,7 +176,134 @@
 </div>
 
 
+<script>
 
+
+
+const loginForm = document.querySelector('.login form');
+const signupForm = document.querySelector('.signup form');
+const loginBtn = document.getElementById('submitSignIn');
+const signupBtn = document.getElementById('submitSignUp');
+
+
+function showNotification(message, type) {
+    
+    const notification = document.createElement('div');
+    notification.style.position = 'fixed';
+    notification.style.top = '20px';
+    notification.style.right = '20px';
+    notification.style.padding = '15px 25px';
+    notification.style.borderRadius = '4px';
+    notification.style.display = 'flex';
+    notification.style.alignItems = 'center';
+    notification.style.gap = '10px';
+    notification.style.zIndex = '1000';
+    notification.style.transition = 'all 0.3s ease';
+    notification.style.transform = 'translateY(-100%)';
+    notification.style.opacity = '0';
+
+    // Set colors based on type
+    if (type === 'success') {
+        notification.style.backgroundColor = '#4CAF50';
+        notification.style.color = 'white';
+    } else {
+        notification.style.backgroundColor = '#f44336';
+        notification.style.color = 'white';
+    }
+
+    // Add icon and message
+    notification.innerHTML = `
+        <i class='bx ${type === 'success' ? 'bx-check-circle' : 'bx-x-circle'}'></i>
+        <span>${message}</span>
+    `;
+
+    // Add to document
+    document.body.appendChild(notification);
+
+    // Show notification
+    setTimeout(() => {
+        notification.style.transform = 'translateY(0)';
+        notification.style.opacity = '1';
+    }, 100);
+
+    // Remove after 3 seconds
+    setTimeout(() => {
+        notification.style.transform = 'translateY(-100%)';
+        notification.style.opacity = '0';
+        setTimeout(() => {
+            notification.remove();
+        }, 300);
+    }, 3000);
+}
+
+// Function to handle form submission
+async function handleFormSubmit(formType, email, password, name = '') {
+    // Show loading
+    const button = formType === 'login' ? loginBtn : signupBtn;
+    const originalText = button.textContent;
+    button.disabled = true;
+    button.innerHTML = '<i class="bx bx-loader-alt bx-spin"></i> Loading...';
+
+    try {
+        // Simulate API call
+        await new Promise(resolve => setTimeout(resolve, 1500));
+
+        // Check if fields are empty
+        if (formType === 'login' && (!email || !password)) {
+            throw new Error('Please fill in all fields');
+        }
+        if (formType === 'signup' && (!email || !password || !name)) {
+            throw new Error('Please fill in all fields');
+        }
+
+        // Show success message
+        showNotification(
+            formType === 'login' ? 'Login successful!' : 'Account created successfully!',
+            'success'
+        );
+
+        // Redirect after successful login/signup (uncomment and modify path as needed)
+        // setTimeout(() => {
+        //     window.location.href = '/dashboard.html';
+        // }, 1500);
+
+    } catch (error) {
+        showNotification(error.message, 'error');
+    } finally {
+        // Reset button
+        button.disabled = false;
+        button.textContent = originalText;
+    }
+}
+
+// Add event listeners
+if (loginBtn) {
+    loginBtn.addEventListener('click', async (e) => {
+        e.preventDefault();
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        await handleFormSubmit('login', email, password);
+    });
+}
+
+if (signupBtn) {
+    signupBtn.addEventListener('click', async (e) => {
+        e.preventDefault();
+        const name = document.getElementById('rname').value;
+        const email = document.getElementById('remail').value;
+        const password = document.getElementById('rpassword').value;
+        await handleFormSubmit('signup', email, password, name);
+    });
+}
+
+// Hide preloader when page loads
+window.addEventListener('load', () => {
+    const preloader = document.getElementById('preloader');
+    if (preloader) {
+        preloader.style.display = 'none';
+    }
+});
+</script>
 
 <footer class="footer">
 
