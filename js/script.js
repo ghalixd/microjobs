@@ -16,8 +16,8 @@ window.addEventListener("load", function () {
 
 const forms = document.querySelector(".forms"),
     pwShowHide = document.querySelectorAll(".eye-icon"),
-    signupLink = document.querySelector(".signup-link"),  
-    loginLink = document.querySelector(".login-link");    
+    signupLink = document.querySelector(".sginup-link"),
+    loginLink = document.querySelector(".login-link");
 
 
 pwShowHide.forEach(eyeIcon => {
@@ -64,7 +64,7 @@ loginLink.addEventListener("click", (e) => {
     forms.classList.remove("show-signup");
     console.log("Login form displayed");
 });
-
+﻿
 
 
 const jobs = [
