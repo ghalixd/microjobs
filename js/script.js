@@ -64,7 +64,10 @@ loginLink.addEventListener("click", (e) => {
     forms.classList.remove("show-signup");
     console.log("Login form displayed");
 });
-﻿
+
+
+
+
 
 
 const jobs = [
